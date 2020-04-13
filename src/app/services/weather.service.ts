@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Coords } from './geolocation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,9 @@ export class WeatherService {
   constructor(private httpClient: HttpClient) { }
 
 
-  public getWeatherByLatAndLang(lat: number, lon: number): Observable<any> {
-    const url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + this.openWeatherApiKey;
+  public getWeatherByLatAndLang(userLocation: Coords): Observable<any> {
+      // return of();
+    const url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + userLocation.x + '&lon=' + userLocation.y + '&appid=' + this.openWeatherApiKey;
     return this.httpClient.get(url, {});
   }
 }

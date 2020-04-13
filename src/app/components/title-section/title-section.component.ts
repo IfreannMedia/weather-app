@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GeolocationService } from 'src/app/services/geolocation.service';
 
 @Component({
   selector: 'app-title-section',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TitleSectionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private geoLocationService: GeolocationService) { }
 
   ngOnInit(): void {
+    this.geoLocationService.getGeoLocation();
   }
 
 }
