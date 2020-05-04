@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GeolocationService } from 'src/app/services/geolocation.service';
-import { WeatherService } from 'src/app/services/weather.service';
 import { CountryService } from 'src/app/services/country.service';
+import { Country } from 'src/app/models/backend-models/country';
+import { CountryComplete } from 'src/app/models/country-complete';
 
 @Component({
   selector: 'app-title-section',
@@ -11,17 +12,26 @@ import { CountryService } from 'src/app/services/country.service';
 
 export class TitleSectionComponent implements OnInit {
 
+  private countries: CountryComplete[] = []
+
+
   constructor(private geoLocationService: GeolocationService,
-    private countryService: CountryService) { }
+    private countryService: CountryService) {
+
+  }
 
   ngOnInit(): void {
     this.geoLocationService.getGeoLocation();
     // TODO CREATE MODELS FOR COUNTRIES AND CONVERT THE BASE64 IMAGES into icons to show in a searchbar
-    this.countryService.getCountriesAndCapitals().subscribe((result) => {
+    this.countryService.getCountriesAndCapitals().subscribe((result: Country[]) => {
       console.log("getCountriesAndCapitals")
       console.log(result);
-      let countries = new CountriesAndCapitals();
-      countries.countries = result
+      console.log(typeof result);
+      result.forEach((c, i) => this.countries[i] = new CountryComplete(c));
+      console.log(this.countries);
+      debugger;
+      // let countries = new CountriesAndCapitals();
+      // countries.countries = result
     });
 
     this.countryService.getCountriesFlagsAsBase64().subscribe((result) => {
@@ -35,8 +45,4 @@ export class TitleSectionComponent implements OnInit {
     });
   }
 
-}
-
-export class CountriesAndCapitals {
-  public countries: [{ country: string, capital: string }];
 }

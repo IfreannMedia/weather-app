@@ -1,0 +1,11 @@
+.main-section {
+    height: 100vh;
+    min-height: 650px;
+    max-height: 1000px;
+}
+
+.footer {
+    height: calc(100vh - 89%);
+    min-height: 200px;
+    max-height: 400px;
+}
