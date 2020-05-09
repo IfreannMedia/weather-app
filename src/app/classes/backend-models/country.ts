@@ -1,6 +1,7 @@
 import { ConstructionAssigner } from '../../static utilities/construction-assigner';
+import { IHasCountry } from '../interfaces/IHasCountry';
 
-export class Country {
+export class Country implements IHasCountry {
     public country: string = '';
     public city: string = '';
 

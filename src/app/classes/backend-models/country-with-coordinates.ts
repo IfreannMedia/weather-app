@@ -1,6 +1,7 @@
+import { IHasCountry } from './../interfaces/IHasCountry';
 import { ConstructionAssigner } from 'src/app/static utilities/construction-assigner';
 
-export class CountryWithCoordinates {
+export class CountryWithCoordinates implements IHasCountry {
 
     public country: string = '';
     public east: string = '';

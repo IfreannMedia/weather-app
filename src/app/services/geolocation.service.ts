@@ -1,22 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-
-export class Coords {
-  public x: number = undefined;
-  public y: number = undefined;
-
-  constructor(args?) {
-    if (!args) {
-      return;
-    }
-    if (args.hasOwnProperty('x') && args['x']) {
-      this.x = args.x
-    }
-    if (args.hasOwnProperty('y') && args['y']) {
-      this.y = args.y
-    }
-  }
-}
+import { Coords } from '../classes/coords';
 
 @Injectable({
   providedIn: 'root'

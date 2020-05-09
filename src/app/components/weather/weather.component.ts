@@ -1,8 +1,9 @@
 import { WeatherService } from 'src/app/services/weather.service';
-import { GeolocationService, Coords } from 'src/app/services/geolocation.service';
+import { GeolocationService } from 'src/app/services/geolocation.service';
 import { Subscription } from 'rxjs';
 import { skipWhile } from 'rxjs/operators'
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Coords } from 'src/app/classes/coords';
 
 @Component({
   selector: 'app-weather',
@@ -54,7 +55,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
   private getWeatherDataForCoords(coords: Coords) {
     this.weatherService.getWeatherByLatAndLang(coords).subscribe((data) => {
       console.log('got API data');
-      console.log(JSON.stringify(data));
+      // console.log(JSON.stringify(data));
     }, (e) => {
       console.error(new Error('weatherService.getWeatherTest failed: ' + JSON.stringify(e)));
     })

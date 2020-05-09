@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-searchbar-with-dropdown',
@@ -7,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchbarWithDropdownComponent implements OnInit {
 
-
+  @Input() public entries: any[] = [];
+  public filteredEntries: any[] = [];
   public showList: boolean = false;
   public searchTerm: string = '';
 
@@ -26,5 +27,9 @@ export class SearchbarWithDropdownComponent implements OnInit {
 
   public searthTermChanged(searthTerm: string) {
     this.searchTerm = searthTerm;
+  }
+
+  private filterEntries() {
+    // this.filterEntries = this.entries.filter(val => val.toLowerCase().includes(this.searchTerm.toLowerCase()));
   }
 }
