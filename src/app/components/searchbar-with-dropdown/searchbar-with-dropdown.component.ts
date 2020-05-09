@@ -7,12 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchbarWithDropdownComponent implements OnInit {
 
+
+  public showList: boolean = false;
+
   constructor() { }
 
   ngOnInit() { }
 
 
   public searchGotFocused() {
-    // TODO make searchable list appear
+    this.showList = true;
+  }
+
+  public searchGotBlurred() {
+    this.showList = false;
   }
 }
