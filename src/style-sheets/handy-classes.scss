@@ -1,0 +1,42 @@
+.simple-center-hor {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%
+}
+
+.full-width {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.full-height {
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+}
+
+.half-width {
+    width: 50%;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.padding-m {
+    padding: 10px;
+}
+
+.padding-m-vert {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
