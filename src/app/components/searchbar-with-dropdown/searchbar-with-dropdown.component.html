@@ -1,4 +1,4 @@
-<ion-searchbar animated="true" autoComplete="on" (ionBlur)="searchGotBlurred()" (ionFocus)="searchGotFocused()"></ion-searchbar>
+<ion-searchbar animated="true" autoComplete="on" (ionChange)="searthTermChanged($event.detail.value)" (ionBlur)="searchGotBlurred()" (ionFocus)="searchGotFocused()"></ion-searchbar>
 <ion-list *ngIf="showList">
     <ion-item>item 1</ion-item>
     <ion-item>item 2</ion-item>

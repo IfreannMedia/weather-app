@@ -9,6 +9,7 @@ export class SearchbarWithDropdownComponent implements OnInit {
 
 
   public showList: boolean = false;
+  public searchTerm: string = '';
 
   constructor() { }
 
@@ -21,5 +22,9 @@ export class SearchbarWithDropdownComponent implements OnInit {
 
   public searchGotBlurred() {
     this.showList = false;
+  }
+
+  public searthTermChanged(searthTerm: string) {
+    this.searchTerm = searthTerm;
   }
 }
