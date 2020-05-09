@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { WeatherPage } from './weather.page';
 
 import { WeatherPageRoutingModule } from './weather-routing.module';
+import { TitleSectionModule } from 'src/app/components/title-section/title-section.module';
+import { WeatherModule } from 'src/app/components/weather/weather.module';
+import { FooterModule } from 'src/app/components/footer/footer.module';
 
 
 @NgModule({
@@ -12,8 +15,11 @@ import { WeatherPageRoutingModule } from './weather-routing.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    WeatherPageRoutingModule
+    WeatherPageRoutingModule,
+    TitleSectionModule,
+    WeatherModule,
+    FooterModule
   ],
   declarations: [WeatherPage]
 })
-export class WeatherPageModule {}
+export class WeatherPageModule { }
