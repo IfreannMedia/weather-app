@@ -1,26 +1,23 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouteReuseStrategy } from '@angular/router';
 
-import { AppRoutingModule } from './app-routing.module';
+import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 import { AppComponent } from './app.component';
-import { TitleSectionComponent } from './components/title-section/title-section.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { WeatherComponent } from './components/weather/weather.component';
-import { HttpClientModule }    from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    TitleSectionComponent,
-    WeatherComponent,
-    FooterComponent
+  declarations: [AppComponent],
+  entryComponents: [],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-  ],
-  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

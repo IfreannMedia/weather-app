@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
 
 import { TitleSectionComponent } from './title-section.component';
 
@@ -8,16 +9,14 @@ describe('TitleSectionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TitleSectionComponent ]
-    })
-    .compileComponents();
-  }));
+      declarations: [ TitleSectionComponent ],
+      imports: [IonicModule.forRoot()]
+    }).compileComponents();
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TitleSectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
