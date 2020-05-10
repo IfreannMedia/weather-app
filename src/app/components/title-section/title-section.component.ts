@@ -1,3 +1,4 @@
+import { skipWhile } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { GeolocationService } from 'src/app/services/geolocation.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -15,7 +16,7 @@ import { CountryWithCoordinates } from 'src/app/classes/backend-models/country-w
 
 export class TitleSectionComponent implements OnInit {
 
-  private countries: CountryComplete[] = []
+  public countries: CountryComplete[] = []
 
 
   constructor(private geoLocationService: GeolocationService,
@@ -25,13 +26,17 @@ export class TitleSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.geoLocationService.getGeoLocation();
+    this.collectCountryDataAndCreateModel();
+  }
 
+  private collectCountryDataAndCreateModel() {
     // collect country and location data to populate searchable list:
     zip(this.countryService.getCountriesAndCapitals(),
-    this.countryService.getCountriesFlagsAsBase64(),
-    this.countryService.getGeocoordinatesOfConutries()).toPromise().then((data: [Country[], CountryWithFlag[], CountryWithCoordinates[]]) => {
+      this.countryService.getCountriesFlagsAsBase64(),
+      this.countryService.getGeocoordinatesOfConutries()).toPromise().then((data: [Country[], CountryWithFlag[], CountryWithCoordinates[]]) => {
         this.countryService.createModelFromData(data[0], data[1], data[2]);
-    });
+        this.countries = this.countryService.countriesValue;
+      });
   }
 
 }
