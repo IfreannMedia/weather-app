@@ -46,12 +46,10 @@ export class CountryService {
   }
 
   public createModelFromData(countries: Country[], countriesWithFlags: CountryWithFlag[], countriesWithCoordinates: CountryWithCoordinates[]) {
-    debugger;
     this.createCompleteCountriesSorted(countries, countriesWithFlags, countriesWithCoordinates);
   }
 
   private createCompleteCountriesSorted(countries: Country[], countriesWithFlags: CountryWithFlag[], countriesWithCoordinates: CountryWithCoordinates[]) {
-    debugger;
     // sort each data array
     let countriesComplete: CountryComplete[] = [];
     let dataArray: [Country[], CountryWithFlag[], CountryWithCoordinates[]] = [countries, countriesWithFlags, countriesWithCoordinates];
@@ -68,7 +66,6 @@ export class CountryService {
       countriesComplete[index].location = new Coords(countriesWithCoordinates[index]);
     });
     // emit the behavior subject
-    debugger;
     this.countries = countriesComplete;
   }
 }

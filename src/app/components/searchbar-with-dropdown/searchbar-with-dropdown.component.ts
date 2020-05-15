@@ -1,3 +1,4 @@
+import { CountryComplete } from 'src/app/classes/country-complete';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -7,14 +8,15 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class SearchbarWithDropdownComponent implements OnInit {
 
-  @Input() public entries: any[] = [];
-  public filteredEntries: any[] = [];
+  @Input() public entries: CountryComplete[] = [];
+  public filteredEntries: CountryComplete[] = [];
   public showList: boolean = false;
   public searchTerm: string = '';
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
 
   public searchGotFocused() {
