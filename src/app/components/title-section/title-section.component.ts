@@ -31,12 +31,13 @@ export class TitleSectionComponent implements OnInit {
 
   private collectCountryDataAndCreateModel() {
     // collect country and location data to populate searchable list:
-    zip(this.countryService.getCountriesAndCapitals(),
-      this.countryService.getCountriesFlagsAsBase64(),
-      this.countryService.getGeocoordinatesOfConutries()).toPromise().then((data: [Country[], CountryWithFlag[], CountryWithCoordinates[]]) => {
-        this.countryService.createModelFromData(data[0], data[1], data[2]);
-        this.countries = this.countryService.countriesValue;
-      });
+    this.countryService.createCountriesModel();
+    // zip(this.countryService.getCountriesAndCapitals(),
+    //   this.countryService.getCountriesFlagsAsBase64(),
+    //   this.countryService.getGeocoordinatesOfConutries()).toPromise().then((data: [Country[], CountryWithFlag[], CountryWithCoordinates[]]) => {
+    //     this.countryService.createModelFromData(data[0], data[1], data[2]);
+    //     this.countries = this.countryService.countriesValue;
+    //   });
   }
 
 }
