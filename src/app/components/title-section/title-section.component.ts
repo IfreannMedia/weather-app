@@ -1,12 +1,9 @@
-import { skipWhile } from 'rxjs/operators';
+import { skipWhile, take } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { GeolocationService } from 'src/app/services/geolocation.service';
 import { CountryService } from 'src/app/services/country.service';
 import { CountryComplete } from 'src/app/classes/country-complete';
-import { Country } from 'src/app/classes/backend-models/country';
-import { zip } from 'rxjs';
-import { CountryWithFlag } from 'src/app/classes/backend-models/country-with-flag';
-import { CountryWithCoordinates } from 'src/app/classes/backend-models/country-with-coordinates';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-title-section',
@@ -17,7 +14,7 @@ import { CountryWithCoordinates } from 'src/app/classes/backend-models/country-w
 export class TitleSectionComponent implements OnInit {
 
   public countries: CountryComplete[] = []
-
+  private subscriptions: Subscription[] = [];
 
   constructor(private geoLocationService: GeolocationService,
     private countryService: CountryService) {
@@ -27,17 +24,16 @@ export class TitleSectionComponent implements OnInit {
   ngOnInit(): void {
     this.geoLocationService.getGeoLocation();
     this.collectCountryDataAndCreateModel();
+
+    this.subscriptions.push(this.countryService.countriesObservable
+      .pipe(skipWhile(val => !val)).pipe(take(1))
+      .subscribe((countries: CountryComplete[]) => {
+        this.countries = countries;
+      }));
   }
 
   private collectCountryDataAndCreateModel() {
-    // collect country and location data to populate searchable list:
     this.countryService.createCountriesModel();
-    // zip(this.countryService.getCountriesAndCapitals(),
-    //   this.countryService.getCountriesFlagsAsBase64(),
-    //   this.countryService.getGeocoordinatesOfConutries()).toPromise().then((data: [Country[], CountryWithFlag[], CountryWithCoordinates[]]) => {
-    //     this.countryService.createModelFromData(data[0], data[1], data[2]);
-    //     this.countries = this.countryService.countriesValue;
-    //   });
   }
 
 }
