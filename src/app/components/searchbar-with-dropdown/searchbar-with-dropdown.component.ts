@@ -1,5 +1,7 @@
 import { CountryComplete } from 'src/app/classes/country-complete';
 import { Component, OnInit, Input } from '@angular/core';
+import CountryData from 'node_modules/countries-list/dist/index';
+import { count } from 'rxjs/operators';
 
 @Component({
   selector: 'app-searchbar-with-dropdown',
@@ -12,10 +14,11 @@ export class SearchbarWithDropdownComponent implements OnInit {
   public filteredEntries: CountryComplete[] = [];
   public showList: boolean = false;
   public searchTerm: string = '';
-
+  public Countries: any = undefined;
   constructor() { }
 
   ngOnInit() {
+    this.Countries = CountryData;
   }
 
 
@@ -29,9 +32,14 @@ export class SearchbarWithDropdownComponent implements OnInit {
 
   public searthTermChanged(searthTerm: string) {
     this.searchTerm = searthTerm;
+    this.filterEntries()
   }
 
   private filterEntries() {
-    // this.filterEntries = this.entries.filter(val => val.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    this.filteredEntries = [];
+    this.filteredEntries = this.entries.filter((country: CountryComplete) => {
+      return country.cities.filter(c => c.name.toLowerCase().includes(this.searchTerm.toLowerCase())).length > 0
+        || country.country.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || country.country.native.toLowerCase().includes(this.searchTerm.toLowerCase());
+    });
   }
 }
