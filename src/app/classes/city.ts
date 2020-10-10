@@ -1,6 +1,7 @@
+import { ISearchableEntry } from '../interfaces/ISearchableEntry.interface';
 import { ConstructionAssigner } from './../static utilities/construction-assigner';
 // object from cities.json
-export class City {
+export class City implements ISearchableEntry {
     public country: string = ''; // this iso abbreviation example AD or FI 
     public name: string = '';
     public lat: string = '';
@@ -10,5 +11,13 @@ export class City {
         if (args) {
             ConstructionAssigner.assignProperties(this, args);
         }
+    }
+
+    public getDisplayName(): string {
+        return this.name + ' - ' + this.country;
+    }
+
+    public getComparer(): string {
+        return this.name;
     }
 }

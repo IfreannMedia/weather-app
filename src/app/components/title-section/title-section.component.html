@@ -1,5 +1,20 @@
-<div class="full-height full-width flex-column">
-  <div class="simple-center-hor padding-m-vert">ICON HERE</div>
-  <div class="simple-center-hor  padding-m-vert">TITLE HERE</div>
-  <app-searchbar-with-dropdown [entries]="countries" class="simple-center-hor"></app-searchbar-with-dropdown>
+<div class="full-height full-width b-green flexColumn">
+  <div class="padding-m-vert b-red">ICON HERE</div>
+  <div class="padding-m-vert  b-red">TITLE HERE</div>
+  <div class="flexRow interactions colOnMob b-red">
+    <div class="searchbar flexThird">
+      <ion-label class="uppercase">Select Country:</ion-label>
+      <app-searchbar-with-dropdown [entries]="countries" (selection)="countrySelected($event)">
+      </app-searchbar-with-dropdown>
+    </div>
+    <div class="searchbar flexThird">
+      <ion-label class="uppercase">Select City:</ion-label>
+      <app-searchbar-with-dropdown [entries]="cities" [disabled]="!chosenCountry || !cities"
+        (selection)="citySelected($event)"></app-searchbar-with-dropdown>
+    </div>
+    <ion-button class="flexThird">
+      <ion-icon name="compass-outline"></ion-icon>
+      Get weather by my location
+    </ion-button>
+  </div>
 </div>

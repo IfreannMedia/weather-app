@@ -1,12 +1,24 @@
-#list-container {
-    min-height: 270px;
-    max-height: 900px;
-    height: 35%;
-    position: absolute;
-    width: 50%;
-    box-shadow:  0px 4px 12px 3px rgba(0,0,0,0.24);
-}
+:host {
+    position: relative;
+    
+    #list-container {
+        display: none;
+        height: 270px;
+        overflow-y: scroll;
+        position: absolute;
+        z-index: 1;
+        box-shadow:  0px 4px 12px 3px rgba(0,0,0,0.24);
+    }
+    
+    ion-searchbar {
+        padding-bottom: 4px;
+    }
 
-ion-searchbar {
-    padding-bottom: 4px;
+    .show {
+        display: flex;
+    }
+
+    .show {
+        display: block !important;
+    }
 }

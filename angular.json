@@ -40,6 +40,12 @@
               },
               {
                 "input": "src/style-sheets/handy-classes.scss"
+              },
+              {
+                "input": "src/style-sheets/flex-global.scss"
+              },
+              {
+                "input": "src/style-sheets/text.scss"
               }
             ],
             "scripts": []

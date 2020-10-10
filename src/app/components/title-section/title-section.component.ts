@@ -4,6 +4,7 @@ import { GeolocationService } from 'src/app/services/geolocation.service';
 import { CountryService } from 'src/app/services/country.service';
 import { CountryComplete } from 'src/app/classes/country-complete';
 import { Subscription } from 'rxjs';
+import { City } from 'src/app/classes/city';
 
 @Component({
   selector: 'app-title-section',
@@ -13,8 +14,11 @@ import { Subscription } from 'rxjs';
 
 export class TitleSectionComponent implements OnInit {
 
-  public countries: CountryComplete[] = []
-  private subscriptions: Subscription[] = [];
+  public entries: City[] = [];
+  public countries: CountryComplete[] = [];
+  public chosenCountry: CountryComplete = undefined;
+  public cities: City[] = [];
+  public chosenCity: City = undefined;
 
   constructor(private geoLocationService: GeolocationService,
     private countryService: CountryService) {
@@ -23,17 +27,17 @@ export class TitleSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.geoLocationService.getGeoLocation();
-    this.collectCountryDataAndCreateModel();
-
-    this.subscriptions.push(this.countryService.countriesObservable
-      .pipe(skipWhile(val => !val)).pipe(take(1))
-      .subscribe((countries: CountryComplete[]) => {
-        this.countries = countries;
-      }));
+    this.countries = this.countryService.getCountries();
   }
 
-  private collectCountryDataAndCreateModel() {
-    this.countryService.createCountriesModel();
+  public countrySelected(c: CountryComplete) {
+    this.chosenCountry = c;
+    this.countryService.getCitiesForCountry(c).then((cities: City[]) => {
+      this.cities = cities;
+    });
   }
 
+  public citySelected(c: City) {
+    // TODO get weather for city and display
+  }
 }

@@ -1,11 +1,12 @@
+import { LoadingService } from './loading.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Country } from '../classes/backend-models/country';
 import cities from 'node_modules/cities.json/cities.json';
 import CountryData from 'node_modules/countries-list/dist/index';
-import { City } from '../classes/city';
 import { CountryComplete } from '../classes/country-complete';
+import { City } from '../classes/city';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ import { CountryComplete } from '../classes/country-complete';
 export class CountryService {
 
   private completeCountries: BehaviorSubject<CountryComplete[]> = new BehaviorSubject<CountryComplete[]>(undefined);
-  constructor(private httpClient: HttpClient) { }
+
+  constructor(private laodingService: LoadingService) { }
 
   public get countriesValue() {
     return this.completeCountries.getValue();
@@ -27,15 +29,15 @@ export class CountryService {
     this.completeCountries.next(countries);
   }
 
-  // get data from cities and country-list json files, and merge into array of CountryComplete objects
-  public createCountriesModel() {
-    let countriesComplete: CountryComplete[] = this.createCountries();
-    this.addCitiesToCountries(countriesComplete);
-    this.countries = countriesComplete;
+  public getCountries(): CountryComplete[] {
+    return this.createCountries();
   }
 
-  // creatre array from CountryData, and populate countriesComplete array, then return it
+  // gets already existing country objects otherwise creates and sets them
   private createCountries(): CountryComplete[] {
+    if (this.countriesValue) {
+      return this.countriesValue;
+    }
     const countriesComplete: CountryComplete[] = [];
     Object.entries(CountryData.countries).map((entry: [string, Country]) => {
       const countryCoToAdd = new CountryComplete();
@@ -43,16 +45,21 @@ export class CountryService {
       countryCoToAdd.country = new Country(entry[1]);
       countriesComplete.push(countryCoToAdd);
     });
+    this.countries = countriesComplete;
     return countriesComplete;
   }
 
-  private addCitiesToCountries(countriesComplete: CountryComplete[]) {
-    let citiesArray: City[] = cities as [City];
-    countriesComplete.forEach((country: CountryComplete) => {
-      citiesArray.filter(e => e.country.toLowerCase() === country.countryAsISO.toLowerCase()).map((city, i) => {
-        country.cities.push(city);
-        citiesArray.splice(i, 1);
+  /* gets cities for a given country by ISO string */
+  public getCitiesForCountry(c: CountryComplete): Promise<City[]> {
+    if (cities) {
+      return this.laodingService.presentLoading().then(() => {
+        let citiesArray: City[] = cities as [City];
+        const returnCities = citiesArray.filter(el => el.country.toLowerCase() === c.countryAsISO.toLowerCase()).map(city => new City(city));
+        this.laodingService.dismissLoading();
+        return returnCities;
       });
-    });
+    } else {
+      console.error(new Error('no cities available'));
+    }
   }
 }

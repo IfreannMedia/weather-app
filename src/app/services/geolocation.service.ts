@@ -7,34 +7,34 @@ import { Coords } from '../classes/coords';
 })
 export class GeolocationService {
 
-  private userLocation: BehaviorSubject<Coords> = new BehaviorSubject<Coords>(undefined);
+  private _userLocation: BehaviorSubject<Coords> = new BehaviorSubject<Coords>(undefined);
   public userDeniedLocationServices: EventEmitter<boolean> = new EventEmitter();
   public locationServicesUnavailable: EventEmitter<boolean> = new EventEmitter();
 
   constructor() { }
 
   public get userLocationObservable(): Observable<Coords> {
-    return this.userLocation.asObservable();
+    return this._userLocation.asObservable();
   }
 
   public get userLocationValue(): Coords {
-    return this.userLocation.getValue();
+    return this._userLocation.getValue();
+  }
+
+  private set userLocation(position: Position) {
+    this._userLocation.next(new Coords({ x: position.coords.latitude, y: position.coords.longitude }))
   }
 
   public getGeoLocation() {
     navigator.geolocation.getCurrentPosition((position: Position) => {
-      this.successCallback(position);
+      this.userLocation = position;
     }, (e: PositionError) => {
-      this.errorCallback(e);
+      this.handleUserLocError(e);
     });
-
   }
 
-  private successCallback(position: Position) {
-    this.userLocation.next(new Coords({ x: position.coords.latitude, y: position.coords.longitude }))
-  }
 
-  private errorCallback(err: PositionError) {
+  private handleUserLocError(err: PositionError) {
     if (err.code === err.PERMISSION_DENIED) {
       this.userDeniedLocationServices.emit(true);
     }

@@ -1,0 +1,35 @@
+// Global classes for flex styling
+
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+.noWrap {
+    flex-wrap: nowrap;
+}
+
+.flexWrap {
+    flex-wrap: wrap;
+}
+
+.flexWrapReverse {
+    flex-wrap: wrap-reverse;
+}
+
+.flexThird {
+    flex-basis: 33.333%;
+}
+
+.flexQuarter {
+    flex-basis: 25%;
+}
+
+.flexHalf {
+    flex-basis: 50%;
+}

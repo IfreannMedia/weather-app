@@ -1,3 +1,5 @@
+$tablet-width: 720px;
+
 #container {
     height: 100vh;
     background-image: url("https://source.unsplash.com/lNxMcE8mvIM/1600x900");  // https://source.unsplash.com/lNxMcE8mvIM/1600x900  "https://source.unsplash.com/featured/?{weather},{sunny}"
@@ -6,3 +8,38 @@
     background-repeat: no-repeat; 
     background-size: cover; 
 }
+
+#main-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.colOnMob {
+    @media only screen and (max-width: $tablet-width) {
+          flex-direction: column;
+          flex-wrap: none;
+      }
+}
+
+.interactions {
+    justify-content: space-evenly;
+    align-items: end;
+    @media only screen and (max-width: $tablet-width) {
+        height: 200px;
+    }
+    .searchbar {
+        @media only screen and (max-width: $tablet-width) {
+            width: 100%;
+            height: 220px;
+        }
+    }
+
+    ion-button {
+        @media only screen and (max-width: $tablet-width) {
+            width: 100%;
+            height: 40px;
+        }
+    }
+}
+
+
