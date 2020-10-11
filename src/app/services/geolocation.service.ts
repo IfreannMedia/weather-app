@@ -25,11 +25,16 @@ export class GeolocationService {
     this._userLocation.next(new Coords({ x: position.coords.latitude, y: position.coords.longitude }))
   }
 
-  public getGeoLocation() {
-    navigator.geolocation.getCurrentPosition((position: Position) => {
-      this.userLocation = position;
-    }, (e: PositionError) => {
-      this.handleUserLocError(e);
+  public getGeoLocation(): Promise<Position> {
+    return new Promise((resolve, reject) => {
+      return navigator.geolocation.getCurrentPosition((position: Position) => {
+        this.userLocation = position;
+        resolve(position);
+      }, (e: PositionError) => {
+        // TODO display feedback to user
+        this.handleUserLocError(e);
+        reject(e);
+      });
     });
   }
 

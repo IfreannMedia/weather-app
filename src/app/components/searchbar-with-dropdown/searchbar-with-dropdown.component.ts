@@ -12,6 +12,7 @@ export class SearchbarWithDropdownComponent {
   @ViewChild(IonSearchbar, null) private ionSearchbar: IonSearchbar = undefined;
   @ViewChild('dropdown', null) private dropdown: ElementRef = undefined;
   @Input() public disabled = false;
+  @Input() public label = '';
   @Input() public set entries(entries: ISearchableEntry[]) {
     this.filteredEntries = entries;
     this._entries = entries;
@@ -66,7 +67,7 @@ export class SearchbarWithDropdownComponent {
   private resizeDropdown() {
     if (this.dropdown && this.ionSearchbar && this.showList) {
       this.ionSearchbar.getInputElement().then((el: HTMLInputElement) => {
-        this.dropdown.nativeElement.style.width = el.offsetWidth + 19 + 'px'; // width of input plus 19px
+        this.dropdown.nativeElement.style.width = el.offsetWidth + 'px';
       })
     }
   }

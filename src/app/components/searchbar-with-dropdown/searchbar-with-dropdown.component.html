@@ -1,8 +1,9 @@
-<div class="b-blue">
+<div >
+    <ion-label class="uppercase padding-m" *ngIf="label">{{label}}</ion-label>
     <ion-searchbar [disabled]="disabled" animated="true" (ionChange)="searthTermChanged($event.detail.value)"
         [value]="valueText" (ionBlur)="searchGotBlurred()" (ionFocus)="searchGotFocused()">
     </ion-searchbar>
-    <div class="scroll-div" id="list-container" #dropdown [ngClass]="{'show': showList}">
+    <div id="list-container" #dropdown [ngClass]="{'show': showList}">
         <ion-list>
             <ion-item *ngFor="let entry of filteredEntries" (click)="selectEntry(entry)">{{entry.getDisplayName()}}
             </ion-item>

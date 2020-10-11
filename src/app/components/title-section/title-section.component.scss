@@ -1,45 +1,58 @@
+:host{
 $tablet-width: 720px;
-
-#container {
-    height: 100vh;
-    background-image: url("https://source.unsplash.com/lNxMcE8mvIM/1600x900");  // https://source.unsplash.com/lNxMcE8mvIM/1600x900  "https://source.unsplash.com/featured/?{weather},{sunny}"
-    background-color: #cccccc; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    background-size: cover; 
-}
-
-#main-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.colOnMob {
-    @media only screen and (max-width: $tablet-width) {
-          flex-direction: column;
-          flex-wrap: none;
-      }
-}
-
-.interactions {
-    justify-content: space-evenly;
-    align-items: end;
-    @media only screen and (max-width: $tablet-width) {
-        height: 200px;
+    div.main {
+        justify-content: space-evenly;
+        align-items: center;
     }
-    .searchbar {
-        @media only screen and (max-width: $tablet-width) {
-            width: 100%;
-            height: 220px;
-        }
+
+    .interactions-container {
+        text-align: center;
+        background-image: url("https://source.unsplash.com/TSgwbumanuE/1600x900");  // https://source.unsplash.com/lNxMcE8mvIM/1600x900  "https://source.unsplash.com/featured/?{weather},{sunny}"
+        background-color: #cccccc; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        box-shadow:  0px 4px 12px 3px rgba(255, 255, 255, 0.733);
     }
 
     ion-button {
+        opacity: 1;
+        max-height: 50px;
+        margin: 20px;
+    }
+
+
+
+    .image {
+        background-image: url("https://source.unsplash.com/TSgwbumanuE/1600x900");  // https://source.unsplash.com/lNxMcE8mvIM/1600x900  "https://source.unsplash.com/featured/?{weather},{sunny}"
+        background-color: #cccccc; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+    }
+    
+    .colOnMob {
         @media only screen and (max-width: $tablet-width) {
-            width: 100%;
-            height: 40px;
+            flex-direction: column;
+            flex-wrap: none;
         }
     }
+    
+    .interactions {
+        justify-content: space-evenly;
+        align-items: end;
+        @media only screen and (max-width: $tablet-width) {
+            height: 200px;
+        }
+        .searchbar {
+            color: white;
+            @media only screen and (max-width: $tablet-width) {
+                width: 100%;
+                height: 220px;
+            }
+        }
+        
+    }
+            
+            
+            
 }
-
-

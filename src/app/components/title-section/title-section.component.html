@@ -1,20 +1,18 @@
-<div class="full-height full-width b-green flexColumn">
-  <div class="padding-m-vert b-red">ICON HERE</div>
-  <div class="padding-m-vert  b-red">TITLE HERE</div>
-  <div class="flexRow interactions colOnMob b-red">
-    <div class="searchbar flexThird">
-      <ion-label class="uppercase">Select Country:</ion-label>
-      <app-searchbar-with-dropdown [entries]="countries" (selection)="countrySelected($event)">
-      </app-searchbar-with-dropdown>
-    </div>
-    <div class="searchbar flexThird">
-      <ion-label class="uppercase">Select City:</ion-label>
-      <app-searchbar-with-dropdown [entries]="cities" [disabled]="!chosenCountry || !cities"
-        (selection)="citySelected($event)"></app-searchbar-with-dropdown>
-    </div>
-    <ion-button class="flexThird">
-      <ion-icon name="compass-outline"></ion-icon>
+<div class="full-height full-width flexColumn image main">
+  <div class="interactions-container padding-m">
+    <ion-button (click)="getUserLocationWeather()">
+      <ion-icon class="padding-m" name="compass-outline"></ion-icon>
       Get weather by my location
     </ion-button>
+    <div class="flexRow interactions colOnMob">
+      <div class="searchbar flexHalf textLeft">
+        <app-searchbar-with-dropdown [entries]="countries" label="Select country:" (selection)="countrySelected($event)">
+        </app-searchbar-with-dropdown>
+      </div>
+      <div class="searchbar flexHalf textLeft">
+        <app-searchbar-with-dropdown [entries]="cities" label="Select city:" [disabled]="!chosenCountry || (chosenCity && !cities) || !cities"
+          (selection)="citySelected($event)"></app-searchbar-with-dropdown>
+      </div>
+    </div>
   </div>
 </div>

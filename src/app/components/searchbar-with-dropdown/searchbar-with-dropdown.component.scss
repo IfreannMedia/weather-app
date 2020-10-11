@@ -1,7 +1,10 @@
 :host {
-    position: relative;
+    div {
+        position: relative;
+    }
     
     #list-container {
+        left: 8px;
         display: none;
         height: 270px;
         overflow-y: scroll;

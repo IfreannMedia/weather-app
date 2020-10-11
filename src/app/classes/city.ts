@@ -14,7 +14,7 @@ export class City implements ISearchableEntry {
     }
 
     public getDisplayName(): string {
-        return this.name + ' - ' + this.country;
+        return this.name;
     }
 
     public getComparer(): string {

@@ -1,3 +1,5 @@
+import { Coords } from 'src/app/classes/coords';
+import { WeatherService } from 'src/app/services/weather.service';
 import { skipWhile, take } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { GeolocationService } from 'src/app/services/geolocation.service';
@@ -21,7 +23,8 @@ export class TitleSectionComponent implements OnInit {
   public chosenCity: City = undefined;
 
   constructor(private geoLocationService: GeolocationService,
-    private countryService: CountryService) {
+    private countryService: CountryService,
+    private weatherService: WeatherService) {
 
   }
 
@@ -31,6 +34,9 @@ export class TitleSectionComponent implements OnInit {
   }
 
   public countrySelected(c: CountryComplete) {
+    if (this.chosenCountry && this.chosenCountry.countryAsISO === c.countryAsISO) {
+      return;
+    }
     this.chosenCountry = c;
     this.countryService.getCitiesForCountry(c).then((cities: City[]) => {
       this.cities = cities;
@@ -38,6 +44,19 @@ export class TitleSectionComponent implements OnInit {
   }
 
   public citySelected(c: City) {
-    // TODO get weather for city and display
+    this.weatherService.getWeatherByLatAndLang(new Coords({ x: c.lat, y: c.lng })).toPromise().then((d: any) => {
+      // TODO Display retrieved weather data
+    });
+  }
+
+  public getUserLocationWeather() {
+    this.geoLocationService.getGeoLocation().then((pos: Position) => {
+      this.weatherService.getWeatherByLatAndLang(new Coords({ x: pos.coords.latitude, y: pos.coords.longitude })).toPromise().then((wData) => {
+        // TODO Display retrieved weather data
+      });
+    }).catch((err) => {
+      // TODO Display appropriate error message to user
+      console.error(new Error(err));
+    });
   }
 }
