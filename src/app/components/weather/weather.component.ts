@@ -1,8 +1,8 @@
+import { WeatherContainer } from 'src/app/classes/weather';
 import { WeatherService } from 'src/app/services/weather.service';
 import { GeolocationService } from 'src/app/services/geolocation.service';
 import { Subscription } from 'rxjs';
-import { skipWhile } from 'rxjs/operators'
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Coords } from 'src/app/classes/coords';
 
 @Component({
@@ -13,22 +13,33 @@ import { Coords } from 'src/app/classes/coords';
 export class WeatherComponent implements OnInit, OnDestroy {
 
   private subscruptions: Subscription[] = [];
+  private _weatherContainer: WeatherContainer = undefined;
+  @Input() public set weatherContainer(w: WeatherContainer) {
+    if (!w) {
+      return;
+    }
+    this._weatherContainer = w;
+  }
+
+  public get weatherContainer(): WeatherContainer {
+    return this._weatherContainer;
+  }
 
 
   constructor(private weatherService: WeatherService,
     private geoLocationService: GeolocationService) { }
 
   ngOnInit(): void {
-    this.subscribeToUserLocation();
-    this.subscribeToUserPermission();
-    this.subscribeToLocationServiceAvailable();
+    this.getWeatherForUsersLocation();
+    this.subscribeToLocationServiceUnavailable();
+    this.subscribeToPermissionDeneid();
   }
 
   ngOnDestroy(): void {
     this.subscruptions.forEach(sub => sub.unsubscribe);
   }
 
-  public subscribeToLocationServiceAvailable() {
+  public subscribeToLocationServiceUnavailable() {
     this.subscruptions.push(this.geoLocationService.locationServicesUnavailable.subscribe((unavailable: boolean) => {
       if (unavailable) {
         // TODO display message to user
@@ -37,7 +48,7 @@ export class WeatherComponent implements OnInit, OnDestroy {
     }));
   }
 
-  public subscribeToUserPermission() {
+  public subscribeToPermissionDeneid() {
     this.subscruptions.push(this.geoLocationService.userDeniedLocationServices.subscribe((deneidPermission: boolean) => {
       if (deneidPermission) {
         // TODO handle user denying permission
@@ -46,20 +57,12 @@ export class WeatherComponent implements OnInit, OnDestroy {
     }));
   }
 
-  public subscribeToUserLocation() {
-    this.subscruptions.push(this.geoLocationService.userLocationObservable.pipe(skipWhile(val => !val)).subscribe((userCoordinates: Coords) => {
-      this.getWeatherDataForCoords(userCoordinates);
-    }));
+  private getWeatherForUsersLocation() {
+    this.geoLocationService.getGeoLocation().then((pos: Position) => {
+      this.weatherService.getWeatherByLatAndLang(new Coords({ x: pos.coords.latitude, y: pos.coords.longitude })).toPromise().then((w: WeatherContainer) => {
+        this.weatherContainer = w;
+      })
+    });
   }
-
-  private getWeatherDataForCoords(coords: Coords) {
-    this.weatherService.getWeatherByLatAndLang(coords).subscribe((data) => {
-      console.log('got API data');
-      // console.log(JSON.stringify(data));
-    }, (e) => {
-      console.error(new Error('weatherService.getWeatherTest failed: ' + JSON.stringify(e)));
-    })
-  }
-
 
 }

@@ -1,5 +1,5 @@
 <div class="scroll-div full-height full-width b-green">
-  <app-title-section></app-title-section>
-  <app-weather></app-weather>
+  <app-title-section (weatherContainer)="setWeatherContainer($event)" ></app-title-section>
+  <app-weather [weatherContainer]="weatherContainer"></app-weather>
   <app-footer></app-footer>
 </div>

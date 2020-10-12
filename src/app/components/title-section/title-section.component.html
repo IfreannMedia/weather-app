@@ -1,6 +1,6 @@
 <div class="full-height full-width flexColumn image main">
   <div class="interactions-container padding-m">
-    <ion-button (click)="getUserLocationWeather()">
+    <ion-button [disabled]="isLoading" (click)="getUserLocationWeather()">
       <ion-icon class="padding-m" name="compass-outline"></ion-icon>
       Get weather by my location
     </ion-button>

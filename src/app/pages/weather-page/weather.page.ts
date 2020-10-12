@@ -1,3 +1,4 @@
+import { WeatherContainer } from './../../classes/weather';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
 })
 export class WeatherPage {
 
-  constructor() {}
+  public weatherContainer: WeatherContainer = undefined;
+
+  constructor() { }
+
+  public setWeatherContainer(w: WeatherContainer) {
+    ;
+    this.weatherContainer = w;
+  }
 
 }

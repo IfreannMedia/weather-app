@@ -1,5 +1,29 @@
 <div class="b-red">
-  <p>
-    weather works!
-  </p>
+  <div class="flexColumn" *ngIf="weatherContainer">
+    <ion-label class="uppercase">Current:</ion-label>
+    <div><span class="bold">temp: </span><span>{{weatherContainer.current.temp}} C°</span> </div>
+    <div *ngIf="weatherContainer.current.rain"><span class="bold">rain:
+      </span><span>{{weatherContainer.current.rain.value}}</span> </div>
+    <div><span class="bold">pressure: </span><span>{{weatherContainer.current.pressure}} (hPa)</span> </div>
+    <div><span class="bold">wind direction: </span><span>{{weatherContainer.current.windDirection}}</span> </div>
+    <div><span class="bold">wind direction (degrees meteorological):
+      </span><span>{{weatherContainer.current.wind_deg}}</span> </div>
+    <div><span class="bold">wind_speed: </span><span>{{weatherContainer.current.wind_speed}} (metre/sec)</span> </div>
+    <div><span class="bold">clouds: </span><span>{{weatherContainer.current.clouds}}%</span> </div>
+    <div><span class="bold">Midday UV Index: </span><span>{{weatherContainer.current.uvi}}</span> </div>
+    <div><span class="bold">Visibility: </span><span>{{weatherContainer.current.visibility}} (metres)</span> </div>
+    <div><span class="bold">Requested Time:
+      </span><span>{{weatherContainer.current.dt * 1000 | date:'shortTime'}}</span>
+    </div>
+    <div><span class="bold">humidity: </span><span>{{weatherContainer.current.humidity}}</span> </div>
+    <div><span class="bold">feels_like: </span><span>{{weatherContainer.current.feels_like}} C°</span> </div>
+    <div><span class="bold">sunrise: </span><span>{{weatherContainer.current.sunrise * 1000 | date:'shortTime'}}</span>
+    </div>
+    <div><span class="bold">sunset: </span><span>{{weatherContainer.current.sunset * 1000 | date:'shortTime'}}</span>
+    </div>
+    <div><span class="bold">weather:
+      </span><span>{{weatherContainer.current.weather[0].main + ' - ' + weatherContainer.current.weather[0].description}}</span>
+    </div>
+    <!-- <div><span class="bold">weather: </span><span><img src="{{weatherContainer.current.weather[0].iconUrl}}"></span> -->
+  </div>
 </div>
