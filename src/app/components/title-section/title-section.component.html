@@ -2,7 +2,7 @@
   <div class="interactions-container padding-m">
     <ion-button [disabled]="isLoading" (click)="getUserLocationWeather()">
       <ion-icon class="padding-m" name="compass-outline"></ion-icon>
-      Get weather by my location
+      {{platform.width() >= 420 ? 'Get weather by my location' : 'Location'}}
     </ion-button>
     <div class="flexRow interactions colOnMob">
       <div class="searchbar flexHalf textLeft">

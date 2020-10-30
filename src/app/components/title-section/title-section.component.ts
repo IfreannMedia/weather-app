@@ -1,3 +1,4 @@
+import { Platform } from '@ionic/angular';
 import { LoadingService } from './../../services/loading.service';
 import { Coords } from 'src/app/classes/coords';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -28,7 +29,8 @@ export class TitleSectionComponent implements OnInit {
 
   constructor(private geoLocationService: GeolocationService,
     private countryService: CountryService,
-    private weatherService: WeatherService) {
+    private weatherService: WeatherService,
+    public platform: Platform) {
 
   }
 

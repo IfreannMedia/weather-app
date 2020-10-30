@@ -6,7 +6,8 @@
     #list-container {
         left: 8px;
         display: none;
-        height: 270px;
+        min-height: 50px;
+        max-height: 270px;
         overflow-y: scroll;
         position: absolute;
         z-index: 1;
